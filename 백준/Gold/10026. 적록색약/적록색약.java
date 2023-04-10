@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Main {
 	static int[] dx = {-1, 1, 0, 0};
@@ -41,69 +39,45 @@ public class Main {
 			for(int j = 0; j < N; j++) {
 				if(!visited[i][j]) {
 					count1++;
-					bfs1(i, j, grid[i][j]);
+					dfs(i, j, grid[i][j]);
 				}
 			}
 		}
-		
-		System.out.println(count1);
 		
 		visited = new boolean[N][N];
 		
 		for(int i = 0; i < N; i++) {
 			for(int j = 0; j < N; j++) {
-				if(!visited[i][j]) {
-					count2++;
-					bfs2(i, j, grid[i][j]);
+				if(grid[i][j].equals("G")) {
+					grid[i][j] = "R";
 				}
 			}
 		}
 		
-		System.out.println(count2);
-	}
-
-	private static void bfs2(int x, int y, String color) {
-		Queue<Pos> q = new LinkedList<>();
-		
-		q.offer(new Pos(x, y, color));
-		visited[x][y] = true;
-
-		while(!q.isEmpty()) {
-			Pos current = q.poll();
-			for(int i = 0; i < 4; i++) {
-				int nx = dx[i] + current.x;
-				int ny = dy[i] + current.y;
-				if(nx<0 || ny<0 || nx>=N || ny>=N) continue;
-				if(!visited[nx][ny]) {
-					if((grid[nx][ny].equals("R") || grid[nx][ny].equals("G")) && (current.color.equals("R") || current.color.equals("G"))) {
-						q.offer(new Pos(nx, ny, "R"));
-						visited[nx][ny] = true;						
-					} else if((grid[nx][ny].equals("B")) && (current.color.equals("B"))){
-						q.offer(new Pos(nx, ny, "B"));
-						visited[nx][ny] = true;	
-					}
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < N; j++) {
+				if(!visited[i][j]) {
+					count2++;
+					dfs(i, j, grid[i][j]);
 				}
-			}			
+			}
 		}
-	}
-
-	private static void bfs1(int x, int y, String color) {
-		Queue<Pos> q = new LinkedList<>();
 		
-		q.offer(new Pos(x, y, color));
+		System.out.print(count1 + " " +count2);
+	}
+	
+	private static void dfs(int x, int y, String color) {
 		visited[x][y] = true;
-
-		while(!q.isEmpty()) {
-			Pos current = q.poll();
-			for(int i = 0; i < 4; i++) {
-				int nx = dx[i] + current.x;
-				int ny = dy[i] + current.y;
-				if(nx<0 || ny<0 || nx>=N || ny>=N) continue;
-				if(grid[nx][ny].equals(current.color) && !visited[nx][ny]) {
-					q.offer(new Pos(nx, ny, current.color));
-					visited[nx][ny] = true;
-				}
-			}			
+		
+		for (int d = 0; d < 4; d++) {
+			int nx = x + dx[d];
+			int ny = y + dy[d];
+			
+			if(nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+			if(!grid[nx][ny].equals(color)) continue;
+			if(visited[nx][ny]) continue;
+			
+			dfs(nx, ny, color);
 		}
 	}
 }
