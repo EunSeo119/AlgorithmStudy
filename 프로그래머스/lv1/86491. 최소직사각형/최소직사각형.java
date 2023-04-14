@@ -1,6 +1,16 @@
 class Solution {
-    public static int solution(int[][] sizes) {
-    	int result = 0;
+	
+	public static int solution(int[][] sizes) {
+        int length = 0, height = 0;
+        for (int[] card : sizes) {
+            length = Math.max(length, Math.max(card[0], card[1]));
+            height = Math.max(height, Math.min(card[0], card[1]));
+        }
+        int answer = length * height;
+        return answer;
+    }
+	
+    public static int solution2(int[][] sizes) {
     	int w_max = 0;
     	int h_max = 0;
     	
