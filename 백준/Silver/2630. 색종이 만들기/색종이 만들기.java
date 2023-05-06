@@ -4,52 +4,45 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+	static int[] answer;
 	static int[][] map;
-	static int blue, white;
+
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
+
 		int N = Integer.parseInt(br.readLine());
 		map = new int[N][N];
-		for(int i = 0; i < N; i++) {
-			st = new StringTokenizer(br.readLine());
-			for(int j = 0; j < N; j++) {
+		answer = new int[2];
+		for (int i = 0; i < N; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			for (int j = 0; j < N; j++) {
 				map[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		
-		partition(0, 0, N);
-		
-		System.out.println(white);
-		System.out.println(blue);
+		cut(0, 0, N);
+		System.out.println(answer[0]);
+		System.out.println(answer[1]);
 	}
 
-	private static void partition(int x, int y, int size) {
-		if(checkColor(x, y, size)) {
-			if(map[x][y]==1) {
-				blue++;
-			} else {
-				white++;
+	private static void cut(int start, int end, int size) {
+		int sum = 0;
+		for (int i = start; i < start + size; i++) {
+			for (int j = end; j < end + size; j++) {
+				sum += map[i][j];
 			}
+		}
+		if (sum == 0) {
+			answer[0]++;
+			return;
+		} else if (sum == size * size) {
+			answer[1]++;
 			return;
 		}
-		
-		int newSize = size/2;
-		partition(x, y, newSize);
-		partition(x+newSize, y, size/2);
-		partition(x, y+newSize, size/2);
-		partition(x+newSize, y+newSize, size/2);
-	}
+		int half = size / 2;
+		cut(start, end, half);
+		cut(start + half, end, half);
+		cut(start, end + half, half);
+		cut(start + half, end + half, half);
 
-	private static boolean checkColor(int x, int y, int size) {
-		int color = map[x][y];
-		
-		for(int i = x; i < x+size; i++) {
-			for(int j = y; j < y+size; j++) {
-				if(map[i][j]!=color) return false;
-			}
-		}
-		
-		return true;
 	}
 }
