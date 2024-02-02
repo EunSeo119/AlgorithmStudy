@@ -1,65 +1,46 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 class Solution {
-    static int N, R;
-    static char[] arr, input;
     static boolean[] visited;
-    static List<Integer> result;
-    static String check;
-    static Set<Integer> set = new HashSet<Integer>();
-    public static int solution(String numbers) {
-        N = numbers.length();
-        input = new char[N];
-
-        for(int i = 0; i < N; i++) {
-            input[i] = numbers.charAt(i);
+    static List<Integer> numList;
+    public int solution(String numbers) {
+        visited = new boolean[numbers.length()];
+        numList = new ArrayList<>();
+        for(int i = 1; i <= numbers.length(); i++){
+            int[] output = new int[i];
+	            perm(0, i, numbers, output);
         }
-
-        for(int i = 1; i <= N; i++) {
-            visited = new boolean[N];
-            R = i;
-            arr = new char[R];
-            check = "";
-            perm(0);
-        }
-
-        return set.size();
+        return numList.size();
     }
-
-    public static void perm(int cnt) {
-        if(cnt == R) {
-            for(int i = 0; i < R; i++) {
-                check += arr[i];
+    
+    // 순열을 이용하여 숫자의 조합을 구하고
+    public void perm(int cnt, int N, String numbers, int[] output){
+        if(cnt == N){
+            String[] strArr = new String[N];
+            for (int i = 0; i < N; i++) {
+                strArr[i] = String.valueOf(output[i]);
+            } 
+            int num = Integer.parseInt(String.join("", strArr));
+            // 해당 숫자의 조합이 소수인지 체크
+            if(isPrime(num)){
+                if(!numList.contains(num)) numList.add(num);
             }
-            if(!check.equals("") && isPrime(Integer.parseInt(check))) {
-                set.add(Integer.valueOf(check));
-            }
-            check="";
             return;
         }
-        for(int i = 0; i < N; i++) {
+        for(int i = 0; i < numbers.length(); i++){
             if(visited[i]) continue;
-
             visited[i] = true;
-            arr[cnt] = input[i];
-            perm(cnt+1);
+            output[cnt] = numbers.charAt(i) - '0';
+            perm(cnt + 1, N, numbers, output);
             visited[i] = false;
         }
     }
-
-    public static boolean isPrime(int n){
+    
+    public boolean isPrime(int n){
         if(n < 2) return false;
-
         for(int i = 2; i*i <= n; i++){
             if(n % i == 0) return false;
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(solution("1231"));
     }
 }
