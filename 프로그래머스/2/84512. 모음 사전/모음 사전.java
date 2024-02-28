@@ -35,7 +35,7 @@ class Solution2 {
     }
 }
 
-class Solution {
+class Solution3 {
     static int idx = 0;
     static int answer = -1;
     public int solution(String word) {
@@ -57,5 +57,24 @@ class Solution {
         dfs(word, text+"I");
         dfs(word, text+"O");
         dfs(word, text+"U");
+    }
+}
+
+// Solution3에 나눠져있는 재귀호출을 반복문으로 한번에 처리
+class Solution {
+    List<String> list = new ArrayList<>();
+    public int solution(String word) {
+        dfs("", 0);
+        return list.indexOf(word);
+    }
+    
+    void dfs(String str, int len) {
+        if(len > 5) return;
+        
+        list.add(str);
+        
+        for(int i = 0; i < 5; i++) {
+            dfs(str + "AEIOU".charAt(i), len + 1);
+        }
     }
 }
