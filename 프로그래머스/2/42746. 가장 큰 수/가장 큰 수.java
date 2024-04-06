@@ -22,6 +22,10 @@ class Solution {
 
         if(result[0].equals("0")) return "0";
         
-        return String.join("", result);
+        // return String.join("", result);
+        StringBuilder sb = new StringBuilder();
+        for (String x : result) sb.append(x);
+        
+        return sb.toString();
     }
 }
