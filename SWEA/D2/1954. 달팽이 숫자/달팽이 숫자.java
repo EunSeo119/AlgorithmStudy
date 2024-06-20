@@ -1,50 +1,55 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
+/**
+ * 가로에서 세로로 넘어갈 때 N값을 1씩 줄이고
+ * 세로에서 가로로 넘어갈 때 더해주는 방향을 바꿔준다
+ */
 public class Solution {
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		int T = Integer.parseInt(st.nextToken());
-		
-		for (int t = 1; t <= T; t++) {
-			int N = Integer.parseInt(br.readLine());
-			int res[][] = new int[N][N];
-			int tmp = 1;
-			int x = 0;
-			int y = 0;
-			int dir = 0;
-			int dx[] = {0, 1, 0, -1};
-			int dy[] = {1, 0, -1, 0};
-			for (int j = 0; j < N; j++) {
-				for (int k = 0; k < N; k++) {
-					res[x][y] = tmp;
-					int nx = x + dx[dir];
-					int ny = y + dy[dir];
-					if (nx < 0 || nx >= N || ny < 0 || ny >= N || res[nx][ny] != 0) {
-						dir = (dir + 1) % 4;
-					}
-					x += dx[dir];
-					y += dy[dir];
-					tmp++;
-				}
-			}
-			bw.write("#"+t+"\n");
-			for (int j = 0; j< N; j++) {
-				for (int k = 0; k<N; k++) {
-					bw.write(res[j][k] + " ");
-				}
-				bw.write("\n");
-			}
-		}
-		
-		bw.flush();
-		bw.close();
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int T = Integer.parseInt(br.readLine());
+
+        for(int t = 1; t <= T; t++) {
+            int N = Integer.parseInt(br.readLine());
+
+            int[][] snail = new int[N][N];
+
+            int count = 1;
+
+            int d = 1;  // 방향
+            int r = 0;  // 가로
+            int c = -1;  // 세로
+
+            while(N > 0) {
+
+                // 가로 방향 이동
+                for(int i = 0; i < N; i++) {
+                    c += d;
+                    snail[r][c] = count;
+                    count++;
+                }
+
+                N--;
+
+                // 세로 방향 이동
+                for(int i = 0; i < N; i++) {
+                    r += d;
+                    snail[r][c] = count;
+                    count++;
+                }
+
+                d *= -1;
+            }
+
+            System.out.println("#" + t);
+            for(int[] row : snail) {
+                for(int s : row) {
+                    System.out.print(s + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
 }
