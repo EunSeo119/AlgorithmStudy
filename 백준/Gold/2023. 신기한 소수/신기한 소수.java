@@ -1,5 +1,8 @@
 import java.io.*;
 
+/**
+ * 중복을 포함한 순열과 소수판정 사용
+ */
 public class Main {
     static int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
     static int N;
