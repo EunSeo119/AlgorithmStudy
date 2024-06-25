@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Queue 사용
+ * (수학) 순서가 리스트 size 초과할 경우 %연산
  */
 public class Main {
     public static void main(String[] args) throws Exception{
@@ -13,23 +13,17 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        Queue<Integer> queue = new LinkedList<>();
-        List<Integer> result = new ArrayList<>();
+        List<Integer> list = new LinkedList<>();
 
         for(int i = 1; i <= N; i++) {
-            queue.offer(i);
-        }
-
-        while(!queue.isEmpty()) {
-            for(int i = 0; i < K-1; i++) {
-                queue.offer(queue.poll());
-            }
-            result.add(queue.poll());
+            list.add(i);
         }
 
         sb.append("<");
+        int idx = 0;
         for(int i = 0; i < N; i++) {
-            sb.append(result.get(i)).append(", ");
+            idx = (idx+K-1)%list.size();
+            sb.append(list.remove(idx) + ", ");
         }
 
         System.out.println(sb.substring(0, sb.length()-2) + ">");
