@@ -1,19 +1,18 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
- * 풀이: (구현)리스트 사용
+ * 풀이: (구현) LinkedList 이용, 데이터 중간에 삽입하는 경우 ArrayList 보다 뛰어난 성능을 가짐
  */
 public class Solution {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
-        ArrayList<Integer> arr;
+        List<Integer> arr;
         StringBuilder sb;
 
         for(int t = 1; t <= 10; t++) {
-            arr = new ArrayList<>();
+            arr = new LinkedList<>();
             int N = Integer.parseInt(br.readLine());
             st = new StringTokenizer(br.readLine());
 
