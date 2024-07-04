@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -23,11 +22,12 @@ public class Main {
             }
         }
 
-        Arrays.sort(lan);
+//        Arrays.sort(lan);   // 이렇게 구한 값에 lan[K-1]+1 해준뒤 저장하면 오버플로우가 남
+        max++;  // 랜선의 길이가 모두 1일 경우
+
         // long으로 해줘야함
         long min = 1;
         long mid = 0;
-        max++;  // 랜선의 길이가 모두 1일 경우
 
         long count = 0;
         while(min < max) {
