@@ -25,17 +25,17 @@ public class Main {
 
         Arrays.sort(lan);
         // long으로 해줘야함
-        max++;    // 랜선의 길이가 모두 1일 경우
         long min = 1;
         long mid = 0;
+        max++;  // 랜선의 길이가 모두 1일 경우
 
-        long count;
+        long count = 0;
         while(min < max) {
             mid = (min + max)/2;
 
             count = 0;
             for(int i = 0; i < K; i++) {
-                count += (lan[i]/mid);
+                count += lan[i]/mid;
             }
 
             if(count < N) {
