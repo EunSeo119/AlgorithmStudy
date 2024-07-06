@@ -1,47 +1,34 @@
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Scanner;
-/*
-class compares implements Comparator<Integer>{
-    @Override
-    public int compare(Integer o1, Integer o2) {
-        if(Math.abs(o1) == Math.abs(o2)) return o1 - o2;
-        return Math.abs(o1) - Math.abs(o2);
-    }
-}*/
+import java.io.*;
+import java.util.*;
 
 public class Main {
- 
-    public static void main(String[] args) {
-    
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-     
-        /*
-        PriorityQueue<Integer> priorityqueue = new PriorityQueue<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                if(Math.abs(o1) == Math.abs(o2)) return o1 - o2;
-                return Math.abs(o1) - Math.abs(o2);
-            }
-        });
-        
-    */
-        
-        PriorityQueue<Integer> priorityqueue = new PriorityQueue<>( 
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int N = Integer.parseInt(br.readLine());
+        PriorityQueue<Integer> pq = new PriorityQueue<>(
                 (Integer o1, Integer o2) -> {
-                if(Math.abs(o1) == Math.abs(o2)) return o1 - o2;
-                return Math.abs(o1) - Math.abs(o2);
-            }
+                    if(Math.abs(o1) == Math.abs(o2)) {
+                        return o1 - o2;
+                    }
+                    return Math.abs(o1) - Math.abs(o2);
+                }
         );
-        
-        for(int n = 0; n < N; n++) {
-            int tmp = sc.nextInt();
-            if(tmp != 0) priorityqueue.offer(tmp);
-            else if (priorityqueue.isEmpty()) System.out.println("0"); 
-            else {
-                System.out.println(priorityqueue.poll());            
+
+        for(int i = 0; i < N; i++) {
+            int num = Integer.parseInt(br.readLine());
+
+            if(num == 0 && pq.isEmpty()) {
+                System.out.println(0);
+                continue;
             }
+
+            if(num == 0) {
+                System.out.println(pq.poll());
+                continue;
+            }
+
+            pq.offer(num);
         }
     }
 }
