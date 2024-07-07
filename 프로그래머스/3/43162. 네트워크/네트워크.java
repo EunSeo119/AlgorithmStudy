@@ -5,8 +5,25 @@ class Solution {
     public int solution(int n, int[][] computers) {
         visited = new boolean[n];
         result = 0;
-        bfs(n, computers);
+        // bfs(n, computers);
+        for(int i = 0; i < n; i++) {
+            if(visited[i]) continue;
+            
+            visited[i] = true;
+            dfs(n, computers, i);
+            result++;
+        }
+        
         return result;
+    }
+    
+    private static void dfs(int n, int[][] computers, int x) {
+        for(int i = 0; i < n; i++) {
+            if(!visited[i] && computers[x][i] == 1) {
+                visited[i] = true;
+                dfs(n, computers, i);
+            }
+        }
     }
     
     private static void bfs(int n, int[][] computers) {
