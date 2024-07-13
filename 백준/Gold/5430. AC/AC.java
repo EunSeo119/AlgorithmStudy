@@ -3,6 +3,9 @@ import java.io.InputStreamReader;
 import java.util.Deque;
 import java.util.LinkedList;
 
+/**
+ * 풀이: Deque 활용하여 직접 swap 하지 않고 시작점과 끝점을 바꿔가면서 풀이
+ */
 public class Main {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
