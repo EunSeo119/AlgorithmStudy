@@ -1,4 +1,5 @@
--- 코드를 입력하세요
+-- 오라클은 GROUP BY 시 SELECT 절에 필요한 컬럼을 명시해 줘야함(집계함수에서 쓰는 컬럼은 제외)
+-- 오라클은 DATE_FORMAT 대신 TO_CHAR 사용
 SELECT FP.PRODUCT_ID, FP.PRODUCT_NAME, SUM(FP.PRICE*FO.AMOUNT) AS TOTAL_SALES
 FROM FOOD_PRODUCT FP
 JOIN FOOD_ORDER FO
