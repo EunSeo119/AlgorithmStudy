@@ -42,28 +42,21 @@ public class Main {
 
                 visited[current.num] = true;
 
-                for(int i = 0; i < 4; i++) {
-                    int next = 0;
-                    String input = "";
-                    if(i == 0) {
-                        next = current.num * 2 % 10000;
-                        input = "D";
-                    } else if(i == 1) {
-                        next = current.num - 1;
-                        if(next == -1) {
-                            next = 9999;
-                        }
-                        input = "S";
-                    } else if(i == 2) {
-                        next = (current.num % 1000) * 10 + current.num / 1000;;
-                        input = "L";
-                    } else {
-                        next = (current.num % 10) * 1000 + current.num / 10;
-                        input = "R";
-                    }
+                int next = current.num * 2 % 10000;
+                queue.offer(new Info(next, current.str + "D"));
 
-                    queue.offer(new Info(next, current.str + input));
+                next = current.num - 1;
+                if(next == -1) {
+                    next = 9999;
                 }
+                queue.offer(new Info(next, current.str + "S"));
+
+                next = (current.num % 1000) * 10 + current.num / 1000;;
+                queue.offer(new Info(next, current.str + "L"));
+
+                next = (current.num % 10) * 1000 + current.num / 10;
+                queue.offer(new Info(next, current.str + "R"));
+                
             }
         }
     }
