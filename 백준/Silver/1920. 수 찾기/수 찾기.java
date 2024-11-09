@@ -20,25 +20,10 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < m; i++){
             int number = Integer.parseInt(st.nextToken());
-            System.out.println(find(array, number));
+            // binarySearch() 메서드는 탐색 성공 시 인덱스의 위치를, 탐색 실패 시 음수를 반환
+            int index = Arrays.binarySearch(array, number);
+            int result = index < 0 ? 0 : 1;
+            System.out.println(result);
         }
-    }
-
-    static int find(int[] array, int number){
-        int start = 0;
-        int end = array.length - 1;
-        while(start <= end){
-            int mid = (end + start) / 2;
-            if(number == array[mid]){
-                return 1;
-            }
-            else if(number > array[mid]){
-                start = mid + 1;
-            }
-            else{
-                end = mid - 1;
-            }
-        }
-        return 0;
     }
 }
