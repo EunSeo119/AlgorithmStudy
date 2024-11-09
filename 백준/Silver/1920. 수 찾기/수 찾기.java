@@ -1,27 +1,44 @@
 import java.io.*;
 import java.util.*;
 public class Main {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int[] array = new int[n];
 
-        int N = Integer.parseInt(br.readLine());
-        HashSet<Integer> hs = new HashSet<>();
         st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < N; i++) {
-            hs.add(Integer.parseInt(st.nextToken()));
+        for(int i = 0; i < n; i++){
+            array[i] = Integer.parseInt(st.nextToken());
         }
 
-        int M = Integer.parseInt(br.readLine());
+        Arrays.sort(array);
+
         st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < M; i++) {
-            int check = Integer.parseInt(st.nextToken());
-            if(hs.contains(check)) {
-                System.out.println(1);
-                continue;
+        int m = Integer.parseInt(st.nextToken());
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < m; i++){
+            int number = Integer.parseInt(st.nextToken());
+            System.out.println(find(array, number));
+        }
+    }
+
+    static int find(int[] array, int number){
+        int start = 0;
+        int end = array.length - 1;
+        while(start <= end){
+            int mid = (end + start) / 2;
+            if(number == array[mid]){
+                return 1;
             }
-
-            System.out.println(0);
+            else if(number > array[mid]){
+                start = mid + 1;
+            }
+            else{
+                end = mid - 1;
+            }
         }
+        return 0;
     }
 }
