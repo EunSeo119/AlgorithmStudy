@@ -1,26 +1,27 @@
-import java.util.Arrays;
-import java.util.Scanner;
-
+import java.io.*;
+import java.util.*;
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		int N = sc.nextInt();
-		int[] arrN = new int[N];
-		for(int i = 0; i < N; i++) {
-			arrN[i] = sc.nextInt();
-		}
-		
-		Arrays.sort(arrN);
-		
-		int M = sc.nextInt();
-		for(int i = 0; i < M; i++) {
-			int numM = sc.nextInt();
-			if(Arrays.binarySearch(arrN, numM)<0) {
-				System.out.println(0);
-			} else {
-				System.out.println(1);
-			}
-		}
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+
+        int N = Integer.parseInt(br.readLine());
+        HashSet<Integer> hs = new HashSet<>();
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < N; i++) {
+            hs.add(Integer.parseInt(st.nextToken()));
+        }
+
+        int M = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < M; i++) {
+            int check = Integer.parseInt(st.nextToken());
+            if(hs.contains(check)) {
+                System.out.println(1);
+                continue;
+            }
+
+            System.out.println(0);
+        }
+    }
 }
